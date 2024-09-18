@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_container
+    ports:
+      - "8080:80"  # Exposes Nginx on port 8080 of your host machine
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Nginx config file
+      - ./app:/var/www/html  # Your PHP application directory
+    depends_on:
+      - php
+    networks:
+      - mynetwork
+
+  php:
+    image: php:8.1-fpm
+    container_name: php_container
+    volumes:
+      - ./app:/var/www/html  # The same app folder is shared with PHP
+    networks:
+      - mynetwork
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d  # Mounts custom SQL scripts to be run at initialization
+    ports:
+      - "3306:3306"  # Exposes MySQL on port 3306 of your host machine
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mysql_data:
