@@ -1,6 +1,6 @@
 # DockerWebserver
 
-Great! Let’s walk through setting up a local development environment with Docker that runs an Nginx server, PHP, and a MySQL database. We’ll be using **Docker Compose** to define and manage the different services. Here’s a step-by-step guide:
+Let’s walk through setting up a local development environment with Docker that runs an Nginx server, PHP, and a MySQL database. We’ll be using **Docker Compose** to define and manage the different services. Here’s a step-by-step guide:
 
 ### 1. **Install Docker and Docker Compose**
 Before we start, ensure you have Docker Desktop installed on your Windows 11 machine:
